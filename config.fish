@@ -36,3 +36,4 @@ if status is-interactive
     echo "Hello, $USER!"
   end
 end
+starship init fish | source
