@@ -36,6 +36,7 @@ keys = [
     Key([mod, "control"], "c", lazy.spawn('rofi -modi "clipboard:greenclip print" -show clipboard -run-command')),
     # Запуск десктоп утилит
     Key([mod, "shift"], "s", lazy.spawn("escrotum -sC")),
+    Key([], "Print", lazy.spawn("escrotum")),
     Key([mod, "shift"], "c", lazy.spawn("xcolor -s -S 16")),
     Key([mod, "shift"], "f", lazy.spawn(expanduser("~/scripts/dialect.sh"), shell=True)),
     
