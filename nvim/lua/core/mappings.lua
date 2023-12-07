@@ -18,7 +18,7 @@ vim.keymap.set("n", "\\", ":split<CR>")
 
 -- Other
 vim.keymap.set("n", "<leader>w", ":w<CR>")
-vim.keymap.set("n", "<leader>q", ":q<CR>")
+vim.keymap.set("n", "<leader>q", ":cquit<CR>")
 vim.keymap.set("n", "<leader>x", ":BufferLinePickClose<CR>")
 vim.keymap.set("n", "<leader>X", ":BufferLineCloseRight<CR>")
 vim.keymap.set("n", "<leader>s", ":BufferLineSortByTabs<CR>")

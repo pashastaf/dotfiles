@@ -24,8 +24,8 @@ require("lazy").setup({
 	},
 	{ "nvim-treesitter/nvim-treesitter" },
 	{ "neovim/nvim-lspconfig" },
-	--{ 'williamboman/nvim-lsp-installer' }, changed by mason
-	{ "joshdick/onedark.vim" }, --theme
+	-- { 'williamboman/nvim-lsp-installer' }, changed by mason
+
 	{
 		"neovim/nvim-lspconfig",
 		"hrsh7th/cmp-nvim-lsp",
@@ -34,10 +34,7 @@ require("lazy").setup({
 		"hrsh7th/cmp-cmdline",
 		"hrsh7th/nvim-cmp",
 	},
-	{
-		"williamboman/mason.nvim",
-		build = ":MasonUpdate",
-	},
+	{ "williamboman/mason.nvim", build = ":MasonUpdate" },
 	{
 		"nvim-telescope/telescope.nvim",
 		tag = "0.1.3",
@@ -51,10 +48,7 @@ require("lazy").setup({
 	},
 	{ "windwp/nvim-autopairs" },
 	{ "windwp/nvim-ts-autotag" },
-	{
-		"akinsho/bufferline.nvim",
-		dependencies = { "nvim-tree/nvim-web-devicons" },
-	},
+	{ "akinsho/bufferline.nvim", dependencies = { "nvim-tree/nvim-web-devicons" } },
 	{ "terrortylor/nvim-comment" },
 	{
 		"nvim-lualine/lualine.nvim",
@@ -63,10 +57,18 @@ require("lazy").setup({
 			"linrongbin16/lsp-progress.nvim",
 		},
 	},
-	{
-		"akinsho/toggleterm.nvim",
-		version = "*",
-		config = true,
-	},
+	{ "akinsho/toggleterm.nvim", version = "*", config = true },
 	{ "folke/which-key.nvim" },
+	{ "norcalli/nvim-colorizer.lua" },
+	{ "ziontee113/icon-picker.nvim", "stevearc/dressing.nvim" },
+	{
+		"AlexvZyl/nordic.nvim",
+		"joshdick/onedark.vim",
+		"rmehri01/onenord.nvim",
+		"rebelot/kanagawa.nvim",
+		"yorik1984/newpaper.nvim",
+		"Mofiqul/dracula.nvim",
+		"rose-pine/neovim",
+	},
+	{ "rose-pine/neovim", name = "rose-pine" },
 })

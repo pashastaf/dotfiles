@@ -1,3 +1,10 @@
+set -x EDITOR nvim
+set fish_greeting
+#set -x MANPAGER "nvim -c 'set ft=man' -"
+set TERM "kitty"
+
+
+
 if status is-interactive
   # Запуск окружения
   if [ -t 0 -a (tty) = "/dev/tty1" -a -z "$DISPLAY" -a "$USER" != "root" ]
@@ -17,13 +24,12 @@ if status is-interactive
   end
 
   # Алиасы для интерактивного режима
-  alias r "ranger"
-  alias ll "ls -alF"
+  alias r 'ranger --choosedir="$HOME/.rangerdir"; cd (cat $HOME/.rangerdir)'
   alias x "exit"
-  alias ls "exa -lh --git"
-  alias tree "exa --tree"
-  alias htop "htop -t"
-  alias cp "cp -v"
+  alias ll='exa -al --color=always --group-directories-first' # my preferred listing
+  alias la='exa -a --color=always --group-directories-first'  # all files and dirs
+  alias ls='exa -lh --color=always --group-directories-first --git'  # long format
+  alias tree='exa -aT --color=always --group-directories-first' # tree listing  alias cp "cp -v"
   alias ln "ln -v"
   alias mv "mv -v"
   alias rm "rm -v"
@@ -36,4 +42,7 @@ if status is-interactive
     echo "Hello, $USER!"
   end
 end
+fish_config theme choose "Rosé Pine"
 starship init fish | source
+#neofetch
+#rxfetch

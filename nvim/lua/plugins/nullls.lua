@@ -7,7 +7,8 @@ null_ls.setup({
             "python",
             "sql",
             "cpp",
-            "c"
+            "c",
+            "lua",
         } },
         null_ls.builtins.formatting.lua_format,
         null_ls.builtins.diagnostics.eslint_d,

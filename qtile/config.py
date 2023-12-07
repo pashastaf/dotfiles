@@ -24,108 +24,30 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from libqtile import bar, layout, widget
+from libqtile import bar, layout, widget, qtile
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
+from keys import keys
+from groups import groups, layouts
 
-mod = "mod4"
-terminal = guess_terminal()
+from libqtile import hook
+# some other imports
+import os
+import subprocess
+# stuff
+@hook.subscribe.startup_once
+def autostart():
+    home = os.path.expanduser('~/.config/qtile/autostart.sh') # path to my script, under my user directory
+    subprocess.call([home])
+## СДЕЛАТЬ ДИАЛОГОВЫЕ ОКНА ПЛАВАЮЩИМИ ----------------------------------------------
+@hook.subscribe.client_new
+def floating_dialogs(window):
+    dialog = window.window.get_wm_type() == 'dialog'
+    transient = window.window.get_wm_transient_for()
+    if dialog or transient:
+        window.floating = True
 
-keys = [
-    # Управление фокусом
-    Key([mod], "left", lazy.layout.left(), desc="Move focus to left"), # Фокус влево
-    Key([mod], "right", lazy.layout.right(), desc="Move focus to right"), # Фокус вправо
-    Key([mod], "down", lazy.layout.down(), desc="Move focus down"), # Фокус вниз
-    Key([mod], "up", lazy.layout.up(), desc="Move focus up"), # Фокус вверх
-    Key([mod], "space", lazy.layout.next(), desc="Move window focus to other window"), # Переключить фокус
-
-    # Перемещение окон
-    Key([mod, "shift"], "left", lazy.layout.shuffle_left(), desc="Move window to the left"), # Переместить окно влево
-    Key([mod, "shift"], "right", lazy.layout.shuffle_right(), desc="Move window to the right"), # Переместить окно вправо
-    Key([mod, "shift"], "down", lazy.layout.shuffle_down(), desc="Move window down"), # Переместить окно вниз
-    Key([mod, "shift"], "up", lazy.layout.shuffle_up(), desc="Move window up"), # Переместить окно вверх
-
-    # Изменение размера окна
-    Key([mod, "control"], "left", lazy.layout.grow_left(), desc="Grow window to the left"), # Увеличить окно влево
-    Key([mod, "control"], "right", lazy.layout.grow_right(), desc="Grow window to the right"), # Увеличить окно вправо
-    Key([mod, "control"], "down", lazy.layout.grow_down(), desc="Grow window down"), # Увеличить окно вниз
-    Key([mod, "control"], "up", lazy.layout.grow_up(), desc="Grow window up"), # Увеличить окно вверх
-    Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"), # Вернуть все взад
-    
-    # Запуск приложений
-    Key([mod], "Return", lazy.spawn(terminal)),
-    Key([mod], "d", lazy.spawn("wofi --show run")),
-    Key([mod], "f", lazy.spawn("firefox --wayland")), # Это для вайланда
-    
-    # Переключение между макетами
-    Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
-    # Закрыть окно
-    Key([mod], "q", lazy.window.kill(), desc="Kill focused window"),
-    # Перезагрузить конфиг
-    Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
-    # Выйти из Qtile
-    Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
-    # Выполнить команды (типо встроенное dmenu)
-    Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
-
-	# Раскладка клавиатуры
-    #Key(["alt"], "shift", lazy.widget["keyboardlayout"].next_keyboard(), desc="Next keyboard layout."),
-
-    # Яхз что за это, типо все окна на месте одного окна отображаются.
-    # Toggle between split and unsplit sides of stack.
-    # Split = all windows displayed
-    # Unsplit = 1 window displayed, like Max layout, but still with
-    # multiple stack panes
-    #Key(
-    #    [mod, "shift"],
-    #    "Return",
-    #    lazy.layout.toggle_split(),
-    #    desc="Toggle between split and unsplit sides of stack",
-    #),
-]
-
-groups = [Group(i) for i in "123456789"]
-
-for i in groups:
-    keys.extend(
-        [
-            # mod1 + letter of group = switch to group
-            Key(
-                [mod],
-                i.name,
-                lazy.group[i.name].toscreen(),
-                desc="Switch to group {}".format(i.name),
-            ),
-            # mod1 + shift + letter of group = switch to & move focused window to group
-            Key(
-                [mod, "shift"],
-                i.name,
-                lazy.window.togroup(i.name, switch_group=True),
-                desc="Switch to & move focused window to group {}".format(i.name),
-            ),
-            # Or, use below if you prefer not to switch to that group.
-            # # mod1 + shift + letter of group = move focused window to group
-            # Key([mod, "shift"], i.name, lazy.window.togroup(i.name),
-            #     desc="move focused window to group {}".format(i.name)),
-        ]
-    )
-
-layouts = [
-    layout.Columns(border_focus = "#f9f9f9", border_normal = "#263238", border_width=1, margin = 10),
-    # layout.Max(),
-    # Try more layouts by unleashing below layouts.
-    # layout.Stack(num_stacks=2),
-    # layout.Bsp(),
-    # layout.Matrix(),
-    # layout.MonadTall(),
-    # layout.MonadWide(),
-    # layout.RatioTile(),
-    # layout.Tile(),
-    # layout.TreeTab(),
-    # layout.VerticalTile(),
-    # layout.Zoomy(),
-]
 
 widget_defaults = dict(
     font="JetBrainsMonoNerd",
@@ -136,66 +58,12 @@ extension_defaults = widget_defaults.copy()
 
 screens = [
     Screen(
-        bottom=bar.Bar(
-            [
-                widget.GroupBox(borderwidth=1, # Толщина рамки
-                    highlight_method='block', # Метод выделения активного воркспейса
-                    block_highlight_text_color='#263238',# Цвет текста активного воркспейса
-                    this_current_screen_border="#f9f9f9", # Цвет фона активного воркспейса
-                    rounded=True,
-                    ), # Иконки воркспейсов
-                widget.Prompt(), # Виджет выполнения команд
-                widget.WindowName(max_chars=30),# Имя окна
-                widget.Chord(
-                    chords_colors={
-                        "launch": ("#ff0000", "#ffffff"),
-                    },               
-                    name_transform=lambda name: name.upper(),
-                ),
-
-                
-                widget.CheckUpdates(distro='Arch',
-                display_format='UPDATES  {updates}',
-                no_update_string='UPDATES  0'), # Виджет обновлений пакетов
-                widget.Spacer(length=20), # Виджет пробела
-                
-                #widget.TextBox(text="", padding=0),
-                #widget.PulseVolume(padding=5), # Виджет громкости пульсы
-                widget.Spacer(length=10), # Виджет пробела
-
-                widget.KeyboardLayout(configured_keyboards=['us', 'ru'],
-                                    update_interval=1),
-                
-                #widget.LaunchBar(progs=[('', 'scrot -d 3',)], icon_size='15px'),
-                #widget.Spacer(length=10), # Виджет пробела
-                
-                widget.Systray(), # Трэй, не работает в вялом, нужно будет юзать widget.StatusNotifier
-                widget.Spacer(length=25), # Виджет пробела
-                
-                widget.Clock(format="%Y-%m-%d %a   %H:%M %p", padding=10), # Время и дата
-                widget.Spacer(length=10), # Виджет пробела
-                
-                widget.QuickExit(default_text=''), # Кнопка выключения
-            ],
-            24, # Высота панели
-
-            # border_width=[2, 0, 2, 0],  # Draw top and bottom borders
-            # border_color=["ff00ff", "000000", "ff00ff", "000000"]  # Borders are magenta
-        ),
-        # You can uncomment this variable if you see that on X11 floating resize/moving is laggy
-        # By default we handle these events delayed to already improve performance, however your system might still be struggling
-        # This variable is set to None (no cap) by default, but you can set it to 60 to indicate that you limit it to 60 events per second
-        # x11_drag_polling_rate = 60,
+        #top=bar.Gap(28),
+        #bottom=bar.Gap(28),
     ),
 ]
 
 # Drag floating layouts.
-mouse = [
-    Drag([mod], "Button1", lazy.window.set_position_floating(), start=lazy.window.get_position()),
-    Drag([mod], "Button3", lazy.window.set_size_floating(), start=lazy.window.get_size()),
-    Click([mod], "Button2", lazy.window.bring_to_front()),
-]
-
 dgroups_key_binder = None
 dgroups_app_rules = []  # type: list
 follow_mouse_focus = True
@@ -203,34 +71,22 @@ bring_front_click = False
 floats_kept_above = True
 cursor_warp = False
 floating_layout = layout.Floating(
+        border_width = 2,
     float_rules=[
         # Run the utility of `xprop` to see the wm class and name of an X client.
         *layout.Floating.default_float_rules,
-        Match(wm_class="confirmreset"),  # gitk
-        Match(wm_class="makebranch"),  # gitk
-        Match(wm_class="maketag"),  # gitk
-        Match(wm_class="ssh-askpass"),  # ssh-askpass
-        Match(title="branchdialog"),  # gitk
-        Match(title="pinentry"),  # GPG key password entry
-    ]
-)
+        Match(wm_class='confirmreset'),  # gitk
+        Match(wm_class='makebranch'),  # gitk
+        Match(wm_class='maketag'),  # gitk
+        Match(wm_class='ssh-askpass'),  # ssh-askpass
+        Match(wm_class='Tk'),  # ssh-askpass
+        Match(wm_class='Signal Beta'),  # ssh-askpass
+        Match(title='branchdialog'),  # gitk
+        Match(title='pinentry'),  # GPG key password entry)
+        Match(wm_class='dialect'),  # 
+    ])
 auto_fullscreen = True
 focus_on_window_activation = "smart"
 reconfigure_screens = True
-
-# If things like steam games want to auto-minimize themselves when losing
-# focus, should we respect this or not?
 auto_minimize = True
-
-# When using the Wayland backend, this can be used to configure input devices.
-wl_input_rules = None
-
-# XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
-# string besides java UI toolkits; you can see several discussions on the
-# mailing lists, GitHub issues, and other WM documentation that suggest setting
-# this string if your java app doesn't work correctly. We may as well just lie
-# and say that we're a working one by default.
-#
-# We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
-# java that happens to be on java's whitelist.
 wmname = "LG3D"
