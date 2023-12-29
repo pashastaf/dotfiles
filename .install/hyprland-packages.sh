@@ -59,6 +59,8 @@ packagesPacman=(
     "tldr"
     "fish"
     "telegram-desktop"
+    "acpi"
+    "chrony"
 );
 # ------------------------------------------------------
 packagesYay=(
