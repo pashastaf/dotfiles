@@ -8,7 +8,7 @@ set TERM "kitty"
 if status is-interactive
   # Запуск окружения
   if [ -t 0 -a (tty) = "/dev/tty1" -a -z "$DISPLAY" -a "$USER" != "root" ]
-      startx
+     Hyprland
   end
 
   # Установка приглашения для интерактивного режима
@@ -24,7 +24,8 @@ if status is-interactive
   end
 
   # Алиасы для интерактивного режима
-  alias r 'ranger --choosedir="$HOME/.rangerdir"; cd (cat $HOME/.rangerdir)'
+  #alias r 'ranger --choosedir="$HOME/.rangerdir"; cd (cat $HOME/.rangerdir)'
+  alias r "nnn -e"
   alias x "exit"
   alias ll='exa -al --color=always --group-directories-first' # my preferred listing
   alias la='exa -a --color=always --group-directories-first'  # all files and dirs
@@ -42,7 +43,7 @@ if status is-interactive
     echo "Hello, $USER!"
   end
 end
-fish_config theme choose "Rosé Pine"
+#fish_config theme choose "Rosé Pine"
 starship init fish | source
 #neofetch
 #rxfetch

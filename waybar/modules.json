@@ -1,0 +1,232 @@
+//  __  __           _       _            
+// |  \/  | ___   __| |_   _| | ___  ___  
+// | |\/| |/ _ \ / _` | | | | |/ _ \/ __| 
+// | |  | | (_) | (_| | |_| | |  __/\__ \ 
+// |_|  |_|\___/ \__,_|\__,_|_|\___||___/ 
+//                                        
+//  
+// modified by scorpii 
+// ----------------------------------------------------- 
+//
+
+{
+    // Workspaces
+    "hyprland/workspaces" : {
+        "on-click": "activate",
+        "on-scroll-up": "hyprctl dispatch workspace e+1",
+        "on-scroll-down": "hyprctl dispatch workspace e-1",
+        "active-only": false,
+        "all-outputs": true,
+        "format": "{}",
+        "format-icons": {
+			"urgent": "",
+			"active": "",
+			"default": "",
+        },
+        "persistent_workspaces": {
+             "*": 9,
+        }       
+    },
+
+    // Taskbar
+    "wlr/taskbar": {
+        "format": "{icon}",
+        "icon-size": 18,
+        "tooltip-format": "{title}",
+        "on-click": "activate",
+        "on-click-middle": "close",
+        "ignore-list": ["kitty"],
+    },
+
+    // Hyprland Window
+    "hyprland/window": {
+            "format": "{}",
+            "rewrite": {
+            "(.*) - Mousepad": "$1",
+            "(.*) - Chromium": "$1",
+            "(.*) - Thunar": "$1",
+            "(.*) - Xfce4-terminal": "$1",
+            "(.*) - Smplayer": "$1",
+        },
+        "separate-outputs": true,
+    },
+ 
+    // Cliphist
+    "custom/cliphist": {
+        "format": "",
+        "on-click": "sleep 0.1 && ~/dotfiles/scripts/cliphist.sh",
+        "on-click-right": "sleep 0.1 && ~/dotfiles/scripts/cliphist.sh d",
+        "on-click-middle": "sleep 0.1 && ~/dotfiles/scripts/cliphist.sh w",
+        "tooltip": false,
+    },
+
+    // Updates Count
+    "custom/updates": {
+        "format": "󰶡  {}",
+        "tooltip-format": "{}",
+        "escape": true,
+        "return-type": "json",       
+        "exec": "~/dotfiles/scripts/updates.sh",
+        "restart-interval": 3600,
+        "on-click": "kitty -e ~/dotfiles/scripts/installupdates.sh",
+        "on-click-middle": "kitty -e ~/dotfiles/scripts/cleanup.sh",
+        "on-click-right": "kitty -e ~/dotfiles/scripts/mirrorlist.sh",
+        "tooltip": true,
+    },
+    
+    // Wallpaper
+    "custom/wallpaper": {
+        "format": "",
+        "on-click": "~/dotfiles/scripts/wallpaper.sh select",
+        "on-click-right": "~/dotfiles/scripts/wallpaper.sh",
+        "tooltip": false,
+    },
+
+    // Waybar Themes
+    "custom/waybarthemes": {
+        "format": "󰸌",
+        "on-click": "~/dotfiles/waybar/themeswitcher.sh",
+        "tooltip": false,
+    },
+
+    // Keybindings
+    "custom/keybindings": {
+        "format": "",
+        "on-click": "~/dotfiles/scripts/keybindings.sh",
+        "tooltip": false,
+    },
+
+    // Filemanager Launcher
+    "custom/filemanager": {
+        "format": "",
+        "on-click": "thunar",
+        "tooltip": false,
+    },
+
+    // Browser Launcher
+    "custom/browser": {
+        "format": "",
+        "on-click": "firefox",
+        "tooltip": false,
+    },    
+
+    // Media Player
+    "custom/player": {
+        "format": "󱜅",
+        "on-click": "smplayer",
+        "tooltip": false,
+    },
+
+    // Rofi Application Launcher
+    "custom/appmenu": {
+        "format": "Apps",
+        "on-click": "rofi -show drun -replace",
+        "on-click-middle": "~/dotfiles/scripts/keybindings.sh",
+        "tooltip": false,
+    },
+    
+    // Power Menu
+    "custom/exit": {
+        "format": "",
+        "on-click": "wlogout",
+        "tooltip": false,
+    },
+
+    // System tray
+    "tray": {
+        "spacing": 10,
+    },
+
+    // Clock
+    "clock": {
+        "tooltip-format": "<big>{:%d %B}</big>\n<tt><big>{calendar}</big></tt>",
+        "format-alt": "{:%d-%m-%Y}",
+    },
+
+    // CPU
+    "temperature": {
+        "critical-threshold": 80,
+        "format-critical": "CPU {temperatureC}°C",
+        "format": "",
+        "on-click": "kitty -e btop",
+        "tooltip": false,
+    },
+
+    // Language
+    "hyprland/language": {
+        "on-click": "hyprctl switchxkblayout at-translated-set-2-keyboard next",
+        //"on-click": "hyprctl switchxkblayout lenovo-lenovo-calliope-usb-keyboard next",
+        "format": "{}",
+        "format-en": "US",
+        "format-ru": "RU",
+        "keyboard-name": "at-translated-set-2-keyboard",
+        //"keyboard-name": "lenovo-lenovo-calliope-usb-keyboard",
+    },
+
+    // Network
+    "network": {
+        "format": "{ifname}",
+        "format-wifi": " ",
+        "format-ethernet": "  {ipaddr}",
+        "format-disconnected": "Not connected",
+        "tooltip-format": " {ifname} via {gwaddri}",
+        "tooltip-format-wifi": "   {essid} ({signalStrength}%)",
+        "tooltip-format-ethernet": "  {ifname} ({ipaddr}/{cidr})",
+        "tooltip-format-disconnected": "Disconnected",
+        "max-length": 50,
+        "on-click": "kitty -e nmtui",
+        "on-click-middle": "nmcli r wifi off | nmcli r wifi on",
+    },
+
+    // Battery
+    "battery": {
+        "states": {
+            "warning": 30,
+            "critical": 15,
+        },
+        "format": "{icon}   {capacity}%",
+        "format-charging": "  {capacity}%",
+        "format-plugged": "  {capacity}%",
+        "format-alt": "{icon}  {time}",
+        "format-icons": [" ", " ", " ", " ", " "],
+    },
+
+    // Pulseaudio
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "format-bluetooth": "{volume}% {icon} {format_source}",
+        "format-bluetooth-muted": " {icon} {format_source}",
+        "format-muted": "",
+        "format-source": " {volume}%",
+        "format-source-muted": "",
+        "tooltip-format": "middle-click to un/mute",
+        "tooltip": true,
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": [" ", " ", "󰕾 ", " "],
+        },
+        "on-click": "pavucontrol",
+        "on-click-middle": "pactl set-sink-mute 0 toggle",
+    },
+
+    // Bluetooth
+    "bluetooth": {
+        "format-off": " {}",
+        "on-click": "blueman-manager",
+        "on-click-middle": "bluetoothctl power off | bluetoothctl power on",
+        "tooltip-format": "middle-click to on/off",
+        "tooltip": true,
+    },
+
+    // Other
+    "user": {
+        "format": "{user}",
+        "interval": 60,
+        "icon": false,
+    }
+}
