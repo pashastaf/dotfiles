@@ -58,6 +58,7 @@ packagesPacman=(
     "npm"
     "tldr"
     "fish"
+    "telegram-desktop"
 );
 # ------------------------------------------------------
 packagesYay=(
@@ -66,4 +67,5 @@ packagesYay=(
     "swww"
     "wlr-randr"
     "dialect"
+    "whatsie"
 );

@@ -14,6 +14,7 @@
     _installSymLink rofi ~/.config/rofi ~/dotfiles/rofi/ ~/.config
     _installSymLink swappy ~/.config/swappy ~/dotfiles/swappy/ ~/.config
     _installSymLink waybar ~/.config/waybar ~/dotfiles/waybar/ ~/.config
+    _installSymLink fish ~/.config/fish ~/dotfiles/fish/ ~/.config
     _installSymLink user-dirs.dirs ~/.config/user-dirs.dirs ~/dotfiles/user-dirs.dirs ~/.config/user-dirs.dirs
     _installSymLink user-dirs.locale ~/.config/user-dirs.locale ~/dotfiles/user-dirs.locale ~/.config/user-dirs.locale
     _installSymLink .Xresources ~/.Xresources ~/dotfiles/gtk/.Xresources ~/.Xresources
