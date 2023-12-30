@@ -43,6 +43,7 @@
 
     // Modules Right    
     "modules-right": [
+        "tray",
         "hyprland/language",
         "custom/updates",
         "pulseaudio",

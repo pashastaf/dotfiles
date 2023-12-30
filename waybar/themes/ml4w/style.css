@@ -229,6 +229,29 @@ window#waybar.empty #window {
 }
 
 /* -----------------------------------------------------
+ * Tray
+ * ----------------------------------------------------- */
+
+#tray {
+    background: transparent;
+    margin: 3px 15px 3px 0px;
+    padding:10px;
+    border-radius: 15px;
+    font-weight: normal;
+    font-style: normal;
+    opacity:0.8;
+    border: 3px solid @backgroundlight;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+}
+
+/* -----------------------------------------------------
  * Hyprland Language
  * ----------------------------------------------------- */
 
@@ -366,22 +389,6 @@ background-color: #f53c3c;
     animation-direction: alternate;
 }
 
-/* -----------------------------------------------------
- * Tray
- * ----------------------------------------------------- */
-
-#tray {
-    background-color: #2980b9;
-}
-
-#tray > .passive {
-    -gtk-icon-effect: dim;
-}
-
-#tray > .needs-attention {
-    -gtk-icon-effect: highlight;
-    background-color: #eb4d4b;
-}
 
 /* -----------------------------------------------------
  * Other
