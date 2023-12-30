@@ -1,4 +1,5 @@
 .install
+.git
 install.sh
 README.md
 another
