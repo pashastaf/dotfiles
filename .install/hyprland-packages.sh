@@ -60,7 +60,8 @@ packagesPacman=(
     "fish"
     "telegram-desktop"
     "acpi"
-    "chrony"
+    #"chrony"
+    "python-beautifulsoup4" # - for dialect
 );
 # ------------------------------------------------------
 packagesYay=(

@@ -9,7 +9,7 @@ echo "Deleting temporary files and folders..."
 echo -e "${NONE}"
     rm -rf ~/yay
     rm -rf ~/dotfiles-tmp
-    chsh -s ($which fish)
+    chsh -s $(which fish)
     sleep 1
     clear
 # ------------------------------------------------------

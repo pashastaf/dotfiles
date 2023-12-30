@@ -1,3 +1,3 @@
 #!/bin/bash
-text=$(xclip -o -selection clipboard) 
+text=$(wl-paste) 
 dialect -t "$text" &
