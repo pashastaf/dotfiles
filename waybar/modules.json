@@ -181,7 +181,7 @@
         "tooltip-format-ethernet": "  {ifname} ({ipaddr}/{cidr})",
         "tooltip-format-disconnected": "Disconnected",
         "max-length": 50,
-        "on-click": "kitty -e nmtui",
+        "on-click": "nm-connection-editor",
         "on-click-middle": "nmcli r wifi off | nmcli r wifi on",
     },
 

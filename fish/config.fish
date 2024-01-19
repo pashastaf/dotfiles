@@ -47,3 +47,8 @@ end
 starship init fish | source
 #neofetch
 #rxfetch
+
+#nnn
+export NNN_PLUG='f:finder;o:fzopen;p:mocq;:d:diffs;v:imgview;p:preview-tui'
+export NNN_FIFO=/tmp/nnn.fifo
+
