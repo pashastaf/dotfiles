@@ -20,10 +20,53 @@ local plugins = {
       "nvim-tree/nvim-web-devicons",
       "MunifTanjim/nui.nvim",
       "3rd/image.nvim",
-    }
+    },
+    config = function() require("plugins.ui.neotree") end,
 	},
-	{ "akinsho/bufferline.nvim" },
-	{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" }, 
+	{
+		"akinsho/bufferline.nvim",
+    config = function() require("plugins.ui.bufferline") end,
+	},
+	{
+		"nvim-treesitter/nvim-treesitter",
+		build = ":TSUpdate",
+    config = function() require("plugins.ui.treesitter") end,
+	},
+	{
+		"norcalli/nvim-colorizer.lua",
+		config = function() require("plugins.ui.colorizer") end,
+	},
+	{
+    'nvim-lualine/lualine.nvim',
+		dependencies = { 'nvim-tree/nvim-web-devicons' },
+		config = function() require("plugins.ui.lualine") end,
+	},
+	{ "nvim-telescope/telescope.nvim",
+    dependencies = {
+        "nvim-lua/plenary.nvim",
+        "nvim-lua/popup.nvim",
+    },
+    cmd = "Telescope",
+		config = function() require("plugins.ui.telescope") end,
+	},
+	{
+    "folke/noice.nvim",
+		dependencies = { "MunifTanjim/nui.nvim", "rcarriga/nvim-notify" },
+		config = function() require("plugins.ui.noice") end,
+	},
+	{
+    "glepnir/dashboard-nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    event = "VimEnter",
+    lazy = false,
+    config = function() require("plugins.ui.dashboard") end,
+  },
+	{	'akinsho/toggleterm.nvim',
+		version = "*",
+		config = true,
+		--config = function() require("plugins.ui.toggleterm") end,
+	},
+
 }
 
 local opts = {

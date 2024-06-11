@@ -6,6 +6,11 @@ function am(key, command)
 	map({'n','i','v','t'}, key, command)
 end
 
+-- normal + terminal
+function ntm(key, command)
+	map({'n','t'}, key, command)
+end
+
 -- normal
 function nm(key, command)
 	map('n', key, command)
@@ -30,14 +35,14 @@ g.mapleader = " "
 
 -- GENERAL
 -- Выход, сохранение
-nm('<leader>w', ':w<CR>')
-nm('<leader>q', ':q<CR>')
+nm('<leader>w', '<Cmd>w<CR>')
+nm('<leader>q', '<Cmd>cq<CR>')
 
--- Навигация
-nm('<a-left>', ':wincmd h<CR>')
-nm('<a-right>', ':wincmd l<CR>')
-nm('<a-up>', ':wincmd k<CR>')
-nm('<a-down>', ':wincmd j<CR>')
+-- Навигация окна
+ntm('<a-left>', '<Cmd>wincmd h<CR>')
+ntm('<a-right>', '<Cmd>wincmd l<CR>')
+ntm('<a-up>', '<Cmd>wincmd k<CR>')
+ntm('<a-down>', '<Cmd>wincmd j<CR>')
 
 -- Выделение как в классике
 nm("<S-Up>", "v<Up>")
@@ -58,11 +63,19 @@ am("<C-a>", "<C-\\><C-n>ggVG")
 -- PLUGINS
 
 -- NeoTree
-nm("<leader>e", ":Neotree left reveal<CR>")
+nm("<leader>e", "<Cmd>Neotree toggle<CR>")
 
 -- BufferLine
-nm('<tab>', ':bn<CR>')
-nm('<s-tab>', ':bp<CR>')
-nm('<leader>b', ':bd<CR>:bn<CR>')
+nm('<tab>', '<Cmd>bn<CR>')
+nm('<s-tab>', '<Cmd>bp<CR>')
+nm('<leader>b', '<Cmd>bd<CR>:bn<CR>')
 
+-- Telescope
+nm("ff", "<Cmd>Telescope find_files<CR>")
+nm("fw", "<Cmd>Telescope live_grep<CR>")
+nm("fF", "<Cmd>Telescope find_files cwd=~<CR>")
+nm("<C-f>","<Cmd>Telescope current_buffer_fuzzy_find previewer=false<CR>")
+
+-- Toggleterm
+ntm('<leader>t', '<Cmd>ToggleTerm<CR>')
 
